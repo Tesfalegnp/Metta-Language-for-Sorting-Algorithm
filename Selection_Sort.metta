@@ -1,40 +1,45 @@
+; Selection Sort Algorithm in MeTTa
 
-    ; Selection Sorting Algorthim
-
-(: remove (->  (List $t) $t (List $t)))
-(= (remove () $x) ())
-(= (remove (List $x) ()) (List $x))
-
-(= (remove (:: $h $t) $x)
-    (if (== $h $x) $t (:: $h (remove $t $x)))
-)
-! (remove (:: "Genna" (:: "Kal" ())) "Kal" )
-
-(: findMin (-> (List Number) Number))
-(: helper (->  (List Number) Number Number))
-(= (findMin (:: $h $t)) (helper $t $h))
-(= (findMin ()) ())
-
-(= (helper () $min) $min) ;If the list Empty
-(= ( helper (:: $h $t) $min)
-    (if (< $h $min) 
-     (helper $t $h)
-     (helper $t $min)
-    )
+; --- Remove one occurrence of an element from the list
+(: remove-one (-> (List $t) $t (List $t)))
+(= (remove-one () $x) ())
+(= (remove-one (List $x) ()) (List $x))
+(= (remove-one (:: $h $t) $x)
+   (if (== $h $x)
+       $t
+       (:: $h (remove-one $t $x))
+   )
 )
 
+; ! (remove-one (:: "Genna" (:: "Kal" ())) "Kal") ;Expected (:: "Genna" ())
 
-(= (sorts ()) ())
-(= (sorts (:: $h $t))
-    (let* (
-            ($min (findMin (:: $h $t)))
-            ($removedList (remove (:: $h $t) $min))
-        )
-    (let () (println! ($removedList))
-        (:: $min (sorts $removedList))
-    )
+; --- Find the minimum number in a list
+(: find-min (-> (List Number) Number))
+(: find-min-helper (-> (List Number) Number Number))
+(= (find-min (:: $h $t)) (find-min-helper $t $h))
+(= (find-min ()) ())
+
+(= (find-min-helper () $min) $min)
+(= (find-min-helper (:: $h $t) $min)
+   (if (< $h $min)
+       (find-min-helper $t $h)
+       (find-min-helper $t $min)
+   )
+)
+
+; --- Selection sort implementation
+(: selection-sort (-> (List Number) (List Number)))
+(= (selection-sort ()) ())
+(= (selection-sort (:: $h $t))
+   (let* (
+           ($min (find-min (:: $h $t)))
+           ($rest (remove-one (:: $h $t) $min))
+         )
+   (let ()
+       (println! ($rest))
+       (:: $min (selection-sort $rest))
+   )
 )
 )
-! (sorts (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 ()))))))
-! (sorts (cons 12 (cons 34 (cons 1 (cons 13 (cons 1 ()))))))
 
+! (selection-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 ()))))))
