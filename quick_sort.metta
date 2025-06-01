@@ -1,60 +1,42 @@
-; Quick Sort Algorithm in MeTTa (Fixed and Working)
-
-; --- Concatenate two lists
-(: concat (-> (List $t) (List $t) (List $t)))
-(= (concat () $ys) $ys)
-(= (concat (:: $h $t) $ys)
-   (:: $h (concat $t $ys))
-)
-
-; --- Partition the list into two lists: less than pivot and greater or equal
-(: partition (-> (List Number) Number (List Number) (List Number)))
-(: partition-helper (-> (List Number) Number (List Number) (List Number) (List Number) (List Number)))
-
-(= (partition $lst $pivot)
-   (partition-helper $lst $pivot () () () ())
-)
-
-(= (partition-helper () $pivot $less $greater $out-less $out-greater)
-   (let ()
-     (= $out-less $less)
-     (= $out-greater $greater)
+; --- Filter elements less than or equal to a pivot
+(: filter-le (-> (List Number) Number (List Number)))
+(= (filter-le () $pivot) ())
+(= (filter-le (:: $h $t) $pivot)
+   (if (<= $h $pivot)
+       (:: $h (filter-le $t $pivot))
+       (filter-le $t $pivot)
    )
 )
 
-(= (partition-helper (:: $h $t) $pivot $less $greater $out-less $out-greater)
-   (if (< $h $pivot)
-       (partition-helper $t $pivot (:: $h $less) $greater $out-less $out-greater)
-       (partition-helper $t $pivot $less (:: $h $greater) $out-less $out-greater)
+; --- Filter elements greater than a pivot
+(: filter-gt (-> (List Number) Number (List Number)))
+(= (filter-gt () $pivot) ())
+(= (filter-gt (:: $h $t) $pivot)
+   (if (> $h $pivot)
+       (:: $h (filter-gt $t $pivot))
+       (filter-gt $t $pivot)
    )
 )
 
-; --- Quick sort main function
+; --- Append two lists
+(: append (-> (List $t) (List $t) (List $t)))
+(= (append () $l) $l)
+(= (append (:: $h $t) $l) (:: $h (append $t $l)))
+
+; --- Quick sort implementation
 (: quick-sort (-> (List Number) (List Number)))
-(= (quick-sort ()) ())
-
-(= (quick-sort (:: $pivot $rest))
+(= (quick-sort ()) ()) ; base case: empty list
+(= (quick-sort (:: $h ())) (:: $h ())) ; base case: single element
+(= (quick-sort (:: $h $t))
    (let* (
-           ($out-less ())
-           ($out-greater ())
-           () ; Needed to allow multiple bindings
-           (partition $rest $pivot $out-less $out-greater)
-           ($sorted-less (quick-sort $out-less))
-           ($sorted-greater (quick-sort $out-greater))
+           ($less-equal (filter-le $t $h))
+           ($greater (filter-gt $t $h))
+           ($left (quick-sort $less-equal))
+           ($right (quick-sort $greater))
          )
-       (concat $sorted-less (:: $pivot $sorted-greater))
+     (append $left (:: $h $right))
    )
 )
 
-; --- Example usage
-
-! (quick-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 ()))))))
-
-; (= (index $x)
-;    (let* (($z (superpose $x))
-;          )
-;             (println! $z)
-;    )
-; )
-; !(index (::4 (:: 3 (:: 5 ()))))
-; !(index (1 4 8 3 6 8) 4)
+; Run the example
+! (quick-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 (:: 99 (:: 0 ()))))))))
