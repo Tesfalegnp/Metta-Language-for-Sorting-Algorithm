@@ -21,7 +21,9 @@
 ; --- Append two lists
 (: append (-> (List $t) (List $t) (List $t)))
 (= (append () $l) $l)
-(= (append (:: $h $t) $l) (:: $h (append $t $l)))
+(= (append (:: $h $t) $l) 
+   (:: $h (append $t $l))
+)
 
 ; --- Quick sort implementation
 (: quick-sort (-> (List Number) (List Number)))
@@ -31,12 +33,13 @@
    (let* (
            ($less-equal (filter-le $t $h))
            ($greater (filter-gt $t $h))
+
            ($left (quick-sort $less-equal))
            ($right (quick-sort $greater))
-         )
-     (append $left (:: $h $right))
+         ) 
+         (append $left (:: $h $right)) 
    )
 )
 
-; Run the example
-! (quick-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 (:: 99 (:: 0 ()))))))))
+; Run the example for Test
+! (quick-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 (:: 99 (:: 0 (:: 14 ())))))))))
