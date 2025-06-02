@@ -57,8 +57,11 @@
            ($rest (remove-sinst $min-elem (Cons $elem $list)))
            ($next-counter (+ $counter 1))
          )
-        (let () (println! ($next-counter))
-           (Cons $min-elem (selection-sort-sinst-list $rest $next-counter))
+        (  if (<= $next-counter 5)
+            (let () (println! ($next-counter))
+               (Cons $min-elem (selection-sort-sinst-list $rest $next-counter)))
+            ($rest)
+            
         )
    )
 )
