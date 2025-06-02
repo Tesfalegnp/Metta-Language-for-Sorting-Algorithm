@@ -28,18 +28,19 @@
 )
 
 ; --- Selection sort implementation
-(: selection-sort (-> (List Number) (List Number)))
-(= (selection-sort ()) ())
-(= (selection-sort (:: $h $t))
+(: selection-sort (-> (List Number) Number (List Number)))
+(= (selection-sort () $new) ())
+(= (selection-sort (:: $h $t) $new)
    (let* (
+            ($count (+ $new 1))
            ($min (find-min (:: $h $t)))
            ($rest (remove-one (:: $h $t) $min))
          )
    ( 
-    ; let () (println! ($rest)) ;; for check the work progress you can remove semicolen comment
-       (:: $min (selection-sort $rest))
+       let () (println! ($count)) ;; for check the work progress you can remove semicolen comment
+       (:: $min (selection-sort $rest $count))
    )
 )
 )
 
-! (selection-sort (:: 12 (:: 34 (:: 1 (:: 13 (:: 1 ()))))))
+! (selection-sort (:: 34 (:: 12 (:: 1 (:: 13 (:: 1 ( :: 20 ( :: 18 (:: 16 ( :: 21 ()))))))))) 0)
