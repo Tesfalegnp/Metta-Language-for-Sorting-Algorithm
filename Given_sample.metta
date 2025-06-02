@@ -65,7 +65,7 @@
 ;; An instance set is a list of scored instances.
 
 ;; a scored instance set is a list of scored instances 
-(: InstanceSet (-> $score Type))
+(: InstanceSet (-> $score Type)) 
 (: mkSInstSet (-> (List (ScoredInstance $score)) (InstanceSet $score)))
 
 ;; a sample instance set is with just two scored instances 
@@ -76,3 +76,27 @@
 ;; Partial sort as well as full sort -- select two algorithms implement them and comparet the time complexity -- theorerical and time metta execution time
 
 ;; whenever possible, make use of builtin functions for speed of execution
+
+
+
+; ////////////////////////////////////////////////////
+! (>= 4 5)
+
+(: Siz Type)
+(: mkSize (-> Number Siz))
+
+(: sizeCompare (-> Siz Siz Bool))
+; (= (sizeCompare (mkSize $a) (mkSize $b))
+;     (>= $a $b))
+
+(= (sizeCompare $a $b)
+(let ($a $b) ((mkSize $x) (mkSize $y))
+    (>= $x $y)
+))
+
+(= (sizeCompare $a $b)
+(let ($a $b) ((mkSize $x) (mkSize $y))
+    (>= $x $y)
+))
+! (sizeCompare (mkSize 4) (mkSize 5))
+; ! (sizeCompare  4 5)

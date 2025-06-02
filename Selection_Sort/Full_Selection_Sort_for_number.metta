@@ -33,8 +33,8 @@
 (= (selection-sort (:: $h $t) $new)
    (let* (
             ($count (+ $new 1))
-           ($min (find-min (:: $h $t)))
-           ($rest (remove-one (:: $h $t) $min))
+            ($min (find-min (:: $h $t)))
+            ($rest (remove-one (:: $h $t) $min))
          )
    ( 
        let () (println! ($count)) ;; for check the work progress you can remove semicolen comment
