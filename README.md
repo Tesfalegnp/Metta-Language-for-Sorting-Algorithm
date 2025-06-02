@@ -121,15 +121,3 @@ This project is licensed under the MIT License.
 ## 🤖 AGI Motivation
 
 This project is part of a larger exploration of MeTTa for **artificial general intelligence**, where algorithmic thinking, list manipulation, and reasoning are key primitives for cognitive development.
-
----
-
-```
-
-Let me know if you'd like to include:
-- Python wrappers to auto-run MeTTa tests
-- Visual benchmarking
-- A badge system or GitHub Actions testing setup
-
-I can generate all of those too.
-```
