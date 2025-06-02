@@ -1,132 +1,135 @@
-# MeTTa Sorting Algorithms: Selection Sort vs. Quick Sort
 
-This repository contains implementations of two classic sorting algorithms — **Selection Sort** and **Quick Sort** — written in the **MeTTa programming language**, a minimal symbolic language used in the [Hyperon](https://github.com/trueagi-io/hyperon-experimental) framework.
+# 🔢 Sorting Algorithms in MeTTa (Full & Partial)
 
-These implementations are designed to be clear, idiomatic, and educational for those learning MeTTa or functional-style metaprogramming.
+This repository provides implementations of classic sorting algorithms — **Selection Sort**, **Insertion Sort**, and **Quick Sort** — using the [MeTTa language](https://github.com/opencog/MeTTa), a pattern-matching-based language designed for symbolic reasoning in AGI systems like OpenCog Hyperon.
 
----
-
-## 📁 Contents
-
-- `selection-sort.metta` – Implementation of Selection Sort.
-- `quick-sort.metta` – Implementation of Quick Sort.
-- `README.md` – This file.
+🧪 Each algorithm supports:
+- ✅ **Full sorting**: Sorts the entire list.
+- ✅ **Partial sorting**: Sorts only the first `N` elements and leaves the rest unchanged.
 
 ---
 
-## 🔍 Overview
+## 📂 Project Structure
 
-### 1. **Selection Sort**
-
-- **Time Complexity**: O(n²)
-- **Space Complexity**: O(n) due to recursive list operations
-- **Approach**:
-  - Find the minimum element in the list.
-  - Remove it and recursively sort the rest.
-  - Cons the minimum onto the sorted remainder.
-
-#### ✅ Strengths:
-- Simple and easy to understand.
-- Predictable behavior with small datasets.
-
-#### ❌ Weaknesses:
-- Inefficient for large lists due to repeated scans.
-
----
-
-### 2. **Quick Sort**
-
-- **Time Complexity**: 
-  - Best/Average Case: O(n log n)
-  - Worst Case: O(n²) (with poor pivot choice)
-- **Space Complexity**: O(n)
-- **Approach**:
-  - Choose a pivot (first element in this implementation).
-  - Partition the list into elements less than or equal to the pivot and greater than the pivot.
-  - Recursively sort both partitions and combine them.
-
-#### ✅ Strengths:
-- Fast on average.
-- Good for medium-to-large datasets.
-
-#### ❌ Weaknesses:
-- Recursive depth can grow quickly.
-- Pivot choice significantly affects performance.
-
----
-
-## 🧠 Key Concepts Demonstrated
-
-- Functional list manipulation (`::`, `append`, `filter`)
-- Recursion
-- Pattern matching
-- Deterministic evaluation using `!`
-- Metta-specific evaluation quirks (e.g., multiple equivalent results)
-
----
-
-## 🧪 Example Input
-
-Both programs sort the following list:
-
-```metta
-(:: 12 (:: 34 (:: 1 (:: 13 (:: 1 (:: 99 (:: 0 ())))))))
 ```
 
-Expected Output:
+├── selection sort/      # Selection Sort (full + partial)
+├── insertion sort/      # Insertion Sort (full + partial)
+├── quick sort/          # Quick Sort (full + partial)
+├── README.md                  # Documentation
 
-```metta
-(:: 0 (:: 1 (:: 1 (:: 12 (:: 13 (:: 34 (:: 99 ())))))))
 ```
 
 ---
 
-## ⚖️ Comparison Summary
+## 🧠 About MeTTa
 
-| Feature             | Selection Sort                     | Quick Sort                         |
-|---------------------|------------------------------------|------------------------------------|
-| Time Complexity     | O(n²)                              | O(n log n) average, O(n²) worst    |
-| Stability           | Not stable                         | Not stable                         |
-| Recursion Used      | Yes                                | Yes                                |
-| Simplicity          | Very simple                        | Slightly more complex              |
-| Performance         | Slower on large lists              | Faster on average                  |
+MeTTa (Meta-Type Talk) is a symbolic language for general intelligence. It allows programmable pattern matching and declarative logic, useful for building cognition and learning in AGI systems.
 
 ---
 
-## 🧰 Tips for Running
+## 🔁 Sorting Algorithms Implemented
 
-To run these files:
+### 1. 📌 Selection Sort
 
-1. Install [MeTTa interpreter](https://github.com/trueagi-io/hyperon-experimental)
-2. Save each algorithm to its own file, e.g., `selection-sort.metta`
-3. Run via CLI:
+* **Strategy**: Find minimum repeatedly, place in order.
+* **Full**: Sorts the entire list.
+* **Partial**: Sorts the first `N` elements, rest untouched.
+
+### 2. 📌 Insertion Sort
+
+* **Strategy**: Insert each element into a growing sorted list.
+* **Full**: Stable and adaptive for small datasets.
+* **Partial**: Sorts first `N` elements only.
+
+### 3. 📌 Quick Sort
+
+* **Strategy**: Recursive divide & conquer using pivot.
+* **Full**: High performance for large datasets.
+* **Partial**: Sorts only first `N` items using modified recursion.
+
+---
+
+## ⚙️ Usage & Execution
+
+Make sure you have MeTTa installed.
+
+### ▶️ Run a MeTTa file:
 
 ```bash
-metta -e "(load-file path\"selection-sort.metta")"
-metta -e "(load-file path\"quick-sort.metta\")"
+metta Full_Selection_sort.metta
 ```
 
-Or paste directly into a Jupyter notebook running Hyperon kernel.
+### 🧪 Example Test: Partial Sort
+
+```clojure
+! (partial-selection-sort 3 (:: 12 (:: 34 (:: 1 (:: 13 (:: 5 (:: 7 (:: 3 (:: 0 (:: 8 (:: 6 ())))))))))))
+```
+
+**Expected Output:**
+
+```clojure
+(:: 1 (:: 12 (:: 34 (:: 13 (:: 5 (:: 7 (:: 3 (:: 0 (:: 8 (:: 6 ()))))))))))
+```
 
 ---
 
-## 📬 Feedback & Contributions
+## ⏱️ Time Complexity Testing
 
-If you'd like to improve this repo by:
-- Adding benchmarks
-- Visualizing intermediate steps
-- Generalizing to other types (e.g., strings)
-- Optimizing recursion
+Use large lists and `time` measurement tools in MeTTa to compare:
 
-Please feel free to open an issue or submit a PR!
+| Algorithm      | Full Sort Time | Partial Sort Time (N=5) |
+| -------------- | -------------- | ----------------------- |
+| Selection Sort | O(n²)          | O(n·N)                  |
+| Insertion Sort | O(n²)          | O(n·N)                  |
+| Quick Sort     | O(n log n)     | \~O(N log N)            |
 
----
-
-## 🎓 Learn More
-
-- [MeTTa Tutorial](https://github.com/trueagi-io/hyperon-experimental/blob/master/docs/MettaTutorial.md)
-- [Hyperon GitHub Repo](https://github.com/trueagi-io/hyperon-experimental)
+You can benchmark by adding timers (e.g., using `println!` to trace steps or custom timing wrappers if supported).
 
 ---
 
-Happy coding in MeTTa! 🧠
+## 🔬 Example: Sorting 10 Elements
+
+```clojure
+! (full-insertion-sort (:: 8 (:: 3 (:: 5 (:: 1 (:: 9 (:: 4 (:: 7 (:: 2 (:: 0 (:: 6 ()))))))))))
+```
+
+```clojure
+! (partial-insertion-sort 5 (:: 8 (:: 3 (:: 5 (:: 1 (:: 9 (:: 4 (:: 7 (:: 2 (:: 0 (:: 6 ()))))))))))
+```
+
+---
+
+## 🛠️ Contributing
+
+Pull requests are welcome! If you’d like to add:
+
+* New sorting algorithms (e.g., Merge Sort)
+* Better benchmarking support
+* Tests using symbolic or structured types (e.g., pairs or instances)
+
+Feel free to fork and improve.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🤖 AGI Motivation
+
+This project is part of a larger exploration of MeTTa for **artificial general intelligence**, where algorithmic thinking, list manipulation, and reasoning are key primitives for cognitive development.
+
+---
+
+```
+
+Let me know if you'd like to include:
+- Python wrappers to auto-run MeTTa tests
+- Visual benchmarking
+- A badge system or GitHub Actions testing setup
+
+I can generate all of those too.
+```
