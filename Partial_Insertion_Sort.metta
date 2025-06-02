@@ -97,3 +97,19 @@
           Nil))))))))))
   )
 )
+
+                    ;; The Expected Out Put like 
+
+; (mkSInstSet 
+;   (Cons (mkSInst (mkPair (mkInst (Cons 7 Nil))  (mkCscore 7 10)))  ;; Sorted first
+;   (Cons (mkSInst (mkPair (mkInst (Cons 9 Nil))  (mkCscore 9 25)))  ;; Sorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 8 Nil))  (mkCscore 8 40)))  ;; Sorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 10 Nil)) (mkCscore 10 50))) ;; Sorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 6 Nil))  (mkCscore 6 70)))  ;; Sorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 5 Nil))  (mkCscore 5 15)))  ;; Unsorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 4 Nil))  (mkCscore 4 35)))  ;; Unsorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 3 Nil))  (mkCscore 3 60)))  ;; Unsorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 2 Nil))  (mkCscore 2 5)))   ;; Unsorted
+;   (Cons (mkSInst (mkPair (mkInst (Cons 1 Nil))  (mkCscore 1 20)))  ;; Unsorted
+;         Nil))))))))))
+; )
